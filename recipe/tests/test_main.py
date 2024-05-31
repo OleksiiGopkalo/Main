@@ -16,7 +16,7 @@ class RecipeViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'main.html')
         self.assertTrue('recipes' in response.context)
-        self.assertEqual(len(response.context['recipes']), 10)  # Перевірка, що у відповідь повертається рівно 10 рецептів
+        self.assertEqual(len(response.context['recipes']), 10) 
 
     def test_category_detail_view(self):
         response = self.client.get(reverse('recipe:category_detail', args=[self.category.id]))
