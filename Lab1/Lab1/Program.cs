@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 
-class Program
+public class Program // Зроблено public для доступу з тестів
 {
-    static void Main()
+    public static void Main()
     {
         try
         {
-            // Check if INPUT.TXT exists and is not empty
             if (!File.Exists("INPUT.TXT") || new FileInfo("INPUT.TXT").Length == 0)
             {
                 Console.WriteLine("Error: INPUT.TXT is missing or empty.");
                 return;
             }
 
-            // Read the input and attempt to parse it
             string input = File.ReadAllText("INPUT.TXT").Trim();
             if (!long.TryParse(input, out long x) || x < 1)
             {
@@ -23,13 +21,8 @@ class Program
                 return;
             }
 
-            // Get the prime divisors of x
             List<long> primeDivisors = GetPrimeDivisors(x);
-
-            // Calculate the count of divisors meeting the conditions
             long count = CountSpecialDivisors(x, primeDivisors);
-
-            // Write the result to the output file
             File.WriteAllText("OUTPUT.TXT", count.ToString());
         }
         catch (Exception ex)
@@ -38,8 +31,7 @@ class Program
         }
     }
 
-    // Function to find prime divisors of x
-    static List<long> GetPrimeDivisors(long x)
+    public static List<long> GetPrimeDivisors(long x) // Зроблено public для тестування
     {
         List<long> primes = new List<long>();
 
@@ -73,12 +65,10 @@ class Program
         return primes;
     }
 
-    // Function to count divisors of x divisible by each of its prime divisors
-    static long CountSpecialDivisors(long x, List<long> primes)
+    public static long CountSpecialDivisors(long x, List<long> primes) // Зроблено public для тестування
     {
         long count = 0;
         
-        // Iterate through all divisors and check conditions
         for (long i = 1; i * i <= x; i++)
         {
             if (x % i == 0)
@@ -98,8 +88,7 @@ class Program
         return count;
     }
 
-    // Function to check if a number is divisible by all elements in a list
-    static bool IsDivisibleByAllPrimes(long number, List<long> primes)
+    public static bool IsDivisibleByAllPrimes(long number, List<long> primes) // Зроблено public для тестування
     {
         foreach (long prime in primes)
         {
