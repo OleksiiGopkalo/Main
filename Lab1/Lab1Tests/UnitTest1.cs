@@ -40,14 +40,15 @@ public class DivisorTests
         Assert.AreEqual("1", result); // Очікуємо 1 дільник (30)
     }
 
- [TestMethod]
+[TestMethod]
 public void TestLargeCompositeNumber()
 {
     File.WriteAllText("INPUT.TXT", "100"); // Прості дільники: 2, 5
     Program.Main();
     string result = File.ReadAllText("OUTPUT.TXT");
-    Assert.AreEqual("3", result); // Очікуємо 3 дільники (20, 50, 100)
+    Assert.AreEqual("4", result); // Очікуємо 4 дільники: 10, 20, 50, 100
 }
+
     [TestMethod]
     public void TestSingleDigitNumber()
     {
