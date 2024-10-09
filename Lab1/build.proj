@@ -1,0 +1,33 @@
+<Project>
+
+  <PropertyGroup>
+    <Solution Condition=" '$(Solution)' == '' "></Solution>
+  </PropertyGroup>
+
+   <ItemGroup>
+      <ProjectFile Include="$(Solution)\*.csproj" />
+   </ItemGroup>
+
+  <Target Name="Build">
+    <PropertyGroup>
+      <BuildProject>$(Solution)\$(Solution)\$(Solution).csproj</BuildProject>
+    </PropertyGroup>
+    <MSBuild Projects="$(BuildProject)" Targets="Restore;Build" />
+  </Target>
+
+   <Target Name="Run">
+      <PropertyGroup>
+         <RunProject>$(Solution)\$(Solution).csproj</RunProject>
+      </PropertyGroup>
+      <Exec Command="dotnet run --project &quot;$(RunProject)&quot;" WorkingDirectory="$(Solution)" />
+   </Target>
+
+  <Target Name="Test">
+    <PropertyGroup>
+      <TestProject>$(Solution)\$(Solution).Tests\$(Solution)Tests.csproj</TestProject>
+    </PropertyGroup>
+    <Exec Command="dotnet test $(TestProject) --logger:console;verbosity=detailed" />
+  </Target>
+
+
+</Project>
