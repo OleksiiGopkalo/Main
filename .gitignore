@@ -1,0 +1,65 @@
+# Системні файли
+.DS_Store
+Thumbs.db
+
+# Вихідні файли та директорії для .NET
+bin/
+obj/
+out/
+
+# Файли налаштувань IDE
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Кеш пакунків NuGet
+**/packages/
+!**/packages/build/
+!**/packages/repositories.config
+*.nupkg
+*.snupkg
+.project.nuget.cache
+
+# Файли налаштувань для Rider та Visual Studio Code
+*.sln.iml
+.vscode/
+*.code-workspace
+.idea/
+
+# Логи
+*.log
+
+# Тимчасові файли та кеши
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.pid
+*.seed
+*.pid.lock
+
+# Конфігураційні файли, що містять локальні налаштування або секрети
+appsettings.*.json
+.env
+
+# Результати тестів
+TestResults/
+*.trx
+*.coverage
+coverage/
+
+# Покриття коду
+coverage.opencover.xml
+coverage.cobertura.xml
+coverage.info
+lcov-report/
+coverage/
+
+# Кеши та резервні копії
+*.rsuser
+*.resharper
+_ReSharper.Caches/
