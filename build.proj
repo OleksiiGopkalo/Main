@@ -24,7 +24,7 @@
 
   <Target Name="Test">
     <PropertyGroup>
-      <TestProject>$(Solution)\$(Solution).Tests\$(Solution)Tests.csproj</TestProject>
+      <TestProject>$(Solution)\$(Solution).Tests\$(Solution).Tests.csproj</TestProject>
     </PropertyGroup>
     <Exec Command="dotnet test $(TestProject) --logger:console;verbosity=detailed" />
   </Target>

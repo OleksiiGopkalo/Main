@@ -975,11 +975,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/aleksejgopkalo/Desktop/КПП/Main/Lab1/Lab1Tests/Lab1Tests.csproj",
+      "projectUniqueName": "/Users/aleksejgopkalo/Desktop/Main/Lab1/Lab1Tests/Lab1Tests.csproj",
       "projectName": "Lab1Tests",
-      "projectPath": "/Users/aleksejgopkalo/Desktop/КПП/Main/Lab1/Lab1Tests/Lab1Tests.csproj",
+      "projectPath": "/Users/aleksejgopkalo/Desktop/Main/Lab1/Lab1Tests/Lab1Tests.csproj",
       "packagesPath": "/Users/aleksejgopkalo/.nuget/packages/",
-      "outputPath": "/Users/aleksejgopkalo/Desktop/КПП/Main/Lab1/Lab1Tests/obj/",
+      "outputPath": "/Users/aleksejgopkalo/Desktop/Main/Lab1/Lab1Tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/aleksejgopkalo/.nuget/NuGet/NuGet.Config"
@@ -994,8 +994,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/aleksejgopkalo/Desktop/КПП/Main/Lab1/Lab1/Lab1.csproj": {
-              "projectPath": "/Users/aleksejgopkalo/Desktop/КПП/Main/Lab1/Lab1/Lab1.csproj"
+            "/Users/aleksejgopkalo/Desktop/Main/Lab1/Lab1/Lab1.csproj": {
+              "projectPath": "/Users/aleksejgopkalo/Desktop/Main/Lab1/Lab1/Lab1.csproj"
             }
           }
         }

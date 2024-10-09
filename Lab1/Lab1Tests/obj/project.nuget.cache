@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d5o305cI+50=",
+  "dgSpecHash": "Nzg2SxkTaMM=",
   "success": true,
-  "projectFilePath": "/Users/aleksejgopkalo/Desktop/КПП/Main/Lab1/Lab1Tests/Lab1Tests.csproj",
+  "projectFilePath": "/Users/aleksejgopkalo/Desktop/Main/Lab1/Lab1Tests/Lab1Tests.csproj",
   "expectedPackageFiles": [
     "/Users/aleksejgopkalo/.nuget/packages/coverlet.collector/6.0.0/coverlet.collector.6.0.0.nupkg.sha512",
     "/Users/aleksejgopkalo/.nuget/packages/microsoft.codecoverage/17.8.0/microsoft.codecoverage.17.8.0.nupkg.sha512",
