@@ -1,65 +1,33 @@
-# Системні файли
-.DS_Store
-Thumbs.db
-
-# Вихідні файли та директорії для .NET
+# Виключення директорій bin та obj
 bin/
 obj/
-out/
 
-# Файли налаштувань IDE
-.vscode/
-.idea/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-# Кеш пакунків NuGet
-**/packages/
-!**/packages/build/
-!**/packages/repositories.config
+# Виключення NuGet пакетів
 *.nupkg
-*.snupkg
-.project.nuget.cache
+packages/
 
-# Файли налаштувань для Rider та Visual Studio Code
-*.sln.iml
-.vscode/
-*.code-workspace
+# Виключення архівів
+*.rar
+*.zip
+
+# Виключення виконуваних файлів
+*.exe
+*.dll
+
+# Перевірка наявності .gitignore
+.gitignore
+
+# Виключення користувацьких файлів налаштувань Visual Studio
+*.suo
+
+# Виключення IDE специфічних директорій
 .idea/
+.vscode/
 
-# Логи
+# Інші можливі типові виключення для .NET проєктів
+*.user
+*.cache
+*.pdb
 *.log
-
-# Тимчасові файли та кеши
-*.tmp
-*.temp
-*.bak
-*.swp
-*.swo
-*.pid
-*.seed
-*.pid.lock
-
-# Конфігураційні файли, що містять локальні налаштування або секрети
-appsettings.*.json
-.env
-
-# Результати тестів
 TestResults/
-*.trx
-*.coverage
-coverage/
-
-# Покриття коду
-coverage.opencover.xml
-coverage.cobertura.xml
-coverage.info
-lcov-report/
-coverage/
-
-# Кеши та резервні копії
-*.rsuser
-*.resharper
-_ReSharper.Caches/
+*.pidb
