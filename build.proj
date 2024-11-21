@@ -10,19 +10,19 @@
 
   <Target Name="PrepareAllLabs" Condition=" '$(Solution)' == 'Lab4' ">
     <!-- Будуємо всі лабораторні проекти -->
-    <Exec Command="dotnet build ./lab1/lab1/lab1.csproj -c Release" />
-    <Exec Command="dotnet build ./lab2/lab2/lab2.csproj -c Release" />
-    <Exec Command="dotnet build ./lab3/lab3/lab3.csproj -c Release" />
+    <Exec Command="dotnet build ./Lab1/Lab1/Lab1.csproj -c Release" />
+    <Exec Command="dotnet build ./Lab2/Lab2/Lab2.csproj -c Release" />
+    <Exec Command="dotnet build ./Lab3/Lab3/Lab3.csproj -c Release" />
     
     <!-- Пакуємо проект OGopkalo для NuGet -->
-    <Exec Command="dotnet pack ./lab3/OGopkalo/OGopkalo.csproj -c Release" />
+    <Exec Command="dotnet pack ./Lab3/OGopkalo/OGopkalo.csproj -c Release" />
     
     <!-- Налаштовуємо локальне NuGet-джерело -->
     <Exec Command="dotnet nuget remove source LocalNugetRepo" ContinueOnError="true" />
-    <Exec Command="dotnet nuget add source ./lab3/OGopkalo/bin/Release/ -n LocalNugetRepo" />
+    <Exec Command="dotnet nuget add source ./Lab3/OGopkalo/bin/Release/ -n LocalNugetRepo" />
     
     <!-- Додаємо NuGet-пакет OGopkalo тільки до Lab4Library -->
-    <Exec Command="dotnet add ./Lab4/Lab4Library/Lab4Library.csproj package OGopkalo --source ./lab3/OGopkalo/bin/Release/" />
+    <Exec Command="dotnet add ./Lab4/Lab4Library/Lab4Library.csproj package OGopkalo --source ./Lab3/OGopkalo/bin/Release/" />
   </Target>
 
   <Target Name="Build" DependsOnTargets="PrepareAllLabs">
@@ -40,7 +40,7 @@
     <PropertyGroup>
       <!-- Вибираємо правильний проект для Run -->
       <RunProject Condition=" '$(Solution)' == 'Lab1' ">Lab1/Lab1/Lab1.csproj</RunProject>
-      <RunProject Condition=" '$(Solution)' == 'Lab2' ">Lab2/Lab2/lab2.csproj</RunProject>
+      <RunProject Condition=" '$(Solution)' == 'Lab2' ">Lab2/Lab2/Lab2.csproj</RunProject>
       <RunProject Condition=" '$(Solution)' == 'Lab3' ">Lab3/Lab3/Lab3.csproj</RunProject>
       <RunProject Condition=" '$(Solution)' == 'Lab4' ">Lab4/Lab4App/Lab4App.csproj</RunProject>
     </PropertyGroup>
