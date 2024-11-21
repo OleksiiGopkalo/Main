@@ -8,12 +8,7 @@
     <ProjectFile Include="$(Solution)\*.csproj" />
   </ItemGroup>
 
-  <Target Name="PrepareAllLabs" Condition=" '$(Solution)' == 'Lab4' ">
-    <!-- Будуємо всі лабораторні проекти -->
-    <Exec Command="dotnet build ./Lab1/Lab1/Lab1.csproj -c Release" />
-    <Exec Command="dotnet build ./Lab2/Lab2/Lab2.csproj -c Release" />
-    <Exec Command="dotnet build ./Lab3/Lab3/Lab3.csproj -c Release" />
-    
+  <Target Name="PrepareLab3" Condition=" '$(Solution)' == 'Lab3' ">
     <!-- Пакуємо проект OGopkalo для NuGet -->
     <Exec Command="dotnet pack ./Lab3/OGopkalo/OGopkalo.csproj -c Release" />
     
@@ -21,11 +16,11 @@
     <Exec Command="dotnet nuget remove source LocalNugetRepo" ContinueOnError="true" />
     <Exec Command="dotnet nuget add source ./Lab3/OGopkalo/bin/Release/ -n LocalNugetRepo" />
     
-    <!-- Додаємо NuGet-пакет OGopkalo тільки до Lab4Library -->
-    <Exec Command="dotnet add ./Lab4/Lab4Library/Lab4Library.csproj package OGopkalo --source ./Lab3/OGopkalo/bin/Release/" />
+    <!-- Додаємо NuGet-пакет OGopkalo як залежність тільки до основного проєкту -->
+    <Exec Command="dotnet add ./Lab3/Lab3/Lab3.csproj package OGopkalo --source ./Lab3/OGopkalo/bin/Release/" />
   </Target>
 
-  <Target Name="Build" DependsOnTargets="PrepareAllLabs">
+  <Target Name="Build" DependsOnTargets="PrepareLab3">
     <PropertyGroup>
       <!-- Вибираємо правильний проект для Build -->
       <BuildProject Condition=" '$(Solution)' == 'Lab1' ">Lab1/Lab1/Lab1.csproj</BuildProject>
@@ -47,7 +42,7 @@
     <Exec Command="dotnet run --project &quot;$(RunProject)&quot;" />
   </Target>
 
-  <Target Name="Test">
+  <Target Name="Test" DependsOnTargets="PrepareLab3">
     <PropertyGroup>
       <!-- Вибираємо правильний проект для Test -->
       <TestProject Condition=" '$(Solution)' == 'Lab1' ">Lab1/Lab1Tests/Lab1Tests.csproj</TestProject>
