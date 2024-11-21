@@ -4,30 +4,53 @@
     <Solution Condition=" '$(Solution)' == '' "></Solution>
   </PropertyGroup>
 
-   <ItemGroup>
-      <ProjectFile Include="$(Solution)\*.csproj" />
-   </ItemGroup>
+  <ItemGroup>
+    <ProjectFile Include="$(Solution)\*.csproj" />
+  </ItemGroup>
 
-  <Target Name="Build">
+  <!-- Підготовка для всіх лабораторних проектів (Lab4) -->
+  <Target Name="PrepareAllLabs" Condition=" '$(Solution)' == 'Lab4' ">
+    <!-- Будуємо всі лабораторні проекти -->
+    <Exec Command="dotnet build ./lab1/lab1/lab1.csproj -c Release" />
+    <Exec Command="dotnet build ./lab2/lab2/lab2.csproj -c Release" />
+    <Exec Command="dotnet build ./lab3/lab3/lab3.csproj -c Release" />
+    
+    <!-- Пакуємо проект OGopkalo для NuGet -->
+    <Exec Command="dotnet pack ./lab3/OGopkalo/OGopkalo.csproj -c Release" />
+    
+    <!-- Налаштовуємо локальне NuGet-джерело -->
+ <!-- Налаштування локального NuGet-джерела -->
+<Exec Command="dotnet nuget remove source LocalNugetRepo" ContinueOnError="true" />
+<Exec Command="dotnet nuget add source ./lab3/OGopkalo/bin/Release/ -n LocalNugetRepo" />
+
+    
+    <!-- Додаємо NuGet-пакет OGopkalo як залежність для всіх лабораторних проектів, які його потребують -->
+    <Exec Command="dotnet add ./lab3/lab3/lab3.csproj package OGopkalo --source ./lab3/OGopkalo/bin/Release/" />
+    <Exec Command="dotnet add ./lab4/lab4.csproj package OGopkalo --source ./lab3/OGopkalo/bin/Release/" />
+  </Target>
+
+  <!-- Збірка проекту -->
+  <Target Name="Build" DependsOnTargets="PrepareAllLabs">
     <PropertyGroup>
       <BuildProject>$(Solution)\$(Solution)\$(Solution).csproj</BuildProject>
     </PropertyGroup>
     <MSBuild Projects="$(BuildProject)" Targets="Restore;Build" />
   </Target>
 
-   <Target Name="Run">
-      <PropertyGroup>
-         <RunProject>$(Solution)\$(Solution).csproj</RunProject>
-      </PropertyGroup>
-      <Exec Command="dotnet run --project &quot;$(RunProject)&quot;" WorkingDirectory="$(Solution)" />
-   </Target>
+  <!-- Запуск проекту -->
+  <Target Name="Run">
+    <PropertyGroup>
+      <RunProject>$(Solution)\$(Solution).csproj</RunProject>
+    </PropertyGroup>
+    <Exec Command="dotnet run --project &quot;$(RunProject)&quot;" WorkingDirectory="$(Solution)" />
+  </Target>
 
+  <!-- Тести проекту -->
   <Target Name="Test">
     <PropertyGroup>
       <TestProject>$(Solution)\$(Solution)Tests\$(Solution)Tests.csproj</TestProject>
     </PropertyGroup>
     <Exec Command="dotnet test $(TestProject) --logger:console;verbosity=detailed" />
   </Target>
-
 
 </Project>
