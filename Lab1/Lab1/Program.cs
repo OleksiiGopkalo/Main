@@ -2,33 +2,38 @@
 using System.Collections.Generic;
 using System.IO;
 
-public class Program // Зроблено public для доступу з тестів
+public class Program // Зроблено public для доступу з інших проектів
 {
     public static void Main()
     {
         try
         {
-            if (!File.Exists("INPUT.TXT") || new FileInfo("INPUT.TXT").Length == 0)
-            {
-                Console.WriteLine("Error: INPUT.TXT is missing or empty.");
-                return;
-            }
-
-            string input = File.ReadAllText("INPUT.TXT").Trim();
-            if (!long.TryParse(input, out long x) || x < 1)
-            {
-                Console.WriteLine("Error: Invalid input. Ensure INPUT.TXT contains a valid natural number.");
-                return;
-            }
-
-            List<long> primeDivisors = GetPrimeDivisors(x);
-            long count = CountSpecialDivisors(x, primeDivisors);
-            File.WriteAllText("OUTPUT.TXT", count.ToString());
+            Run("INPUT.TXT", "OUTPUT.TXT");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Unhandled exception: {ex.Message}");
         }
+    }
+
+    public static void Run(string inputFile, string outputFile) // Новий метод для виклику з інших проектів
+    {
+        if (!File.Exists(inputFile) || new FileInfo(inputFile).Length == 0)
+        {
+            Console.WriteLine($"Error: {inputFile} is missing or empty.");
+            return;
+        }
+
+        string input = File.ReadAllText(inputFile).Trim();
+        if (!long.TryParse(input, out long x) || x < 1)
+        {
+            Console.WriteLine("Error: Invalid input. Ensure the input file contains a valid natural number.");
+            return;
+        }
+
+        List<long> primeDivisors = GetPrimeDivisors(x);
+        long count = CountSpecialDivisors(x, primeDivisors);
+        File.WriteAllText(outputFile, count.ToString());
     }
 
     public static List<long> GetPrimeDivisors(long x) // Зроблено public для тестування
@@ -68,7 +73,7 @@ public class Program // Зроблено public для доступу з тес�
     public static long CountSpecialDivisors(long x, List<long> primes) // Зроблено public для тестування
     {
         long count = 0;
-        
+
         for (long i = 1; i * i <= x; i++)
         {
             if (x % i == 0)
