@@ -8,7 +8,6 @@
     <ProjectFile Include="$(Solution)\*.csproj" />
   </ItemGroup>
 
-  <!-- Підготовка для всіх лабораторних проектів (Lab4) -->
   <Target Name="PrepareAllLabs" Condition=" '$(Solution)' == 'Lab4' ">
     <!-- Будуємо всі лабораторні проекти -->
     <Exec Command="dotnet build ./lab1/lab1/lab1.csproj -c Release" />
@@ -19,36 +18,42 @@
     <Exec Command="dotnet pack ./lab3/OGopkalo/OGopkalo.csproj -c Release" />
     
     <!-- Налаштовуємо локальне NuGet-джерело -->
- <!-- Налаштування локального NuGet-джерела -->
-<Exec Command="dotnet nuget remove source LocalNugetRepo" ContinueOnError="true" />
-<Exec Command="dotnet nuget add source ./lab3/OGopkalo/bin/Release/ -n LocalNugetRepo" />
-
+    <Exec Command="dotnet nuget remove source LocalNugetRepo" ContinueOnError="true" />
+    <Exec Command="dotnet nuget add source ./lab3/OGopkalo/bin/Release/ -n LocalNugetRepo" />
     
-    <!-- Додаємо NuGet-пакет OGopkalo як залежність для всіх лабораторних проектів, які його потребують -->
-    <Exec Command="dotnet add ./lab3/lab3/lab3.csproj package OGopkalo --source ./lab3/OGopkalo/bin/Release/" />
-    <Exec Command="dotnet add ./lab4/lab4.csproj package OGopkalo --source ./lab3/OGopkalo/bin/Release/" />
+    <!-- Додаємо NuGet-пакет OGopkalo тільки до Lab4Library -->
+    <Exec Command="dotnet add ./Lab4/Lab4Library/Lab4Library.csproj package OGopkalo --source ./lab3/OGopkalo/bin/Release/" />
   </Target>
 
-  <!-- Збірка проекту -->
   <Target Name="Build" DependsOnTargets="PrepareAllLabs">
     <PropertyGroup>
-      <BuildProject>$(Solution)\$(Solution)\$(Solution).csproj</BuildProject>
+      <!-- Вибираємо правильний проект для Build -->
+      <BuildProject Condition=" '$(Solution)' == 'Lab1' ">Lab1/Lab1/Lab1.csproj</BuildProject>
+      <BuildProject Condition=" '$(Solution)' == 'Lab2' ">Lab2/Lab2/Lab2.csproj</BuildProject>
+      <BuildProject Condition=" '$(Solution)' == 'Lab3' ">Lab3/Lab3/Lab3.csproj</BuildProject>
+      <BuildProject Condition=" '$(Solution)' == 'Lab4' ">Lab4/Lab4Library/Lab4Library.csproj</BuildProject>
     </PropertyGroup>
     <MSBuild Projects="$(BuildProject)" Targets="Restore;Build" />
   </Target>
 
-  <!-- Запуск проекту -->
   <Target Name="Run">
     <PropertyGroup>
-      <RunProject>$(Solution)\$(Solution).csproj</RunProject>
+      <!-- Вибираємо правильний проект для Run -->
+      <RunProject Condition=" '$(Solution)' == 'Lab1' ">Lab1/Lab1/Lab1.csproj</RunProject>
+      <RunProject Condition=" '$(Solution)' == 'Lab2' ">Lab2/Lab2/lab2.csproj</RunProject>
+      <RunProject Condition=" '$(Solution)' == 'Lab3' ">Lab3/Lab3/Lab3.csproj</RunProject>
+      <RunProject Condition=" '$(Solution)' == 'Lab4' ">Lab4/Lab4App/Lab4App.csproj</RunProject>
     </PropertyGroup>
-    <Exec Command="dotnet run --project &quot;$(RunProject)&quot;" WorkingDirectory="$(Solution)" />
+    <Exec Command="dotnet run --project &quot;$(RunProject)&quot;" />
   </Target>
 
-  <!-- Тести проекту -->
   <Target Name="Test">
     <PropertyGroup>
-      <TestProject>$(Solution)\$(Solution)Tests\$(Solution)Tests.csproj</TestProject>
+      <!-- Вибираємо правильний проект для Test -->
+      <TestProject Condition=" '$(Solution)' == 'Lab1' ">Lab1/Lab1Tests/Lab1Tests.csproj</TestProject>
+      <TestProject Condition=" '$(Solution)' == 'Lab2' ">Lab2/Lab2Tests/Lab2Tests.csproj</TestProject>
+      <TestProject Condition=" '$(Solution)' == 'Lab3' ">Lab3/Lab3Tests/Lab3Tests.csproj</TestProject>
+      <TestProject Condition=" '$(Solution)' == 'Lab4' ">Lab4/Lab4Library/Lab4Library.Tests/Lab4Library.Tests.csproj</TestProject>
     </PropertyGroup>
     <Exec Command="dotnet test $(TestProject) --logger:console;verbosity=detailed" />
   </Target>

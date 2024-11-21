@@ -4,6 +4,10 @@
     <ProjectReference Include="..\Lab4Library\Lab4Library.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OGopkalo" Version="1.0.0" />
+  </ItemGroup>
+
   <PropertyGroup>
     <PackageId>OGopkalo</PackageId>
     <Authors>Гопкало Олексій Володимирович</Authors> 
