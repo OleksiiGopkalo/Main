@@ -7,27 +7,46 @@ public class Program
     {
         try
         {
-            string[] lines = File.ReadAllLines("INPUT.TXT");
+            // Зчитуємо всі рядки з файлу
+            string[] lines = File.ReadAllLines("/Users/aleksejgopkalo/Desktop/Main/Lab3/INPUT.TXT");
 
-            int n = int.Parse(lines[0]);
+            // Перевірка на те, чи є хоча б 1 рядок у файлі
+            if (lines.Length == 0)
+            {
+                throw new InvalidDataException("Файл INPUT.TXT порожній.");
+            }
+
+            int n = int.Parse(lines[0]); // Розмір лабіринту
             char[,] maze = new char[n, n];
 
-            // Заповнення лабіринту, перевірка, щоб уникнути виходу за межі масиву
+            // Заповнення лабіринту
             for (int i = 0; i < n; i++)
             {
-                string row = lines[i + 1];
+                string row = lines[i + 1].Trim(); // Використовуємо Trim() для видалення зайвих пробілів
+                if (row.Length != n)
+                {
+                    throw new InvalidDataException($"Рядок {i + 1} не має правильну довжину.");
+                }
+
                 for (int j = 0; j < n; j++)
                 {
                     maze[i, j] = row[j];
                 }
             }
 
+            // Обчислюємо видиму площу
             int totalVisibleArea = CalculateVisibleArea(maze, n);
-            File.WriteAllText("OUTPUT.TXT", totalVisibleArea.ToString());
+
+            // Запис результату в файл
+            File.WriteAllText("/Users/aleksejgopkalo/Desktop/Main/Lab3/OUTPUT.TXT", totalVisibleArea.ToString());
         }
         catch (IndexOutOfRangeException)
         {
             Console.WriteLine("Помилка: Дані у файлі INPUT.TXT не відповідають очікуваному формату.");
+        }
+        catch (InvalidDataException ex)
+        {
+            Console.WriteLine($"Помилка: {ex.Message}");
         }
         catch (Exception ex)
         {
