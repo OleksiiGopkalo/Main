@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Профіль";
+}
+
+<h1>Профіль</h1>
+<p><strong>Ім'я користувача:</strong> @ViewBag.User</p>
+<p><strong>ФІО:</strong> @ViewBag.FullName</p>
+<p><strong>Телефон:</strong> @ViewBag.Phone</p>
+<p><strong>Електронна адреса:</strong> @ViewBag.Email</p>
+<a class="btn btn-primary" asp-action="Logout">Вийти</a>

@@ -15,5 +15,5 @@
 @if (ViewBag.Result != null)
 {
     <p>Результат: @ViewBag.Result</p>
-    <a href="/OUTPUT.TXT" download>Завантажити OUTPUT.TXT</a>
+    <a href="@ViewBag.OutputFilePath" download>Завантажити OUTPUT.TXT</a>
 }
