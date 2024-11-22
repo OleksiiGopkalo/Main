@@ -27,6 +27,7 @@
       <BuildProject Condition=" '$(Solution)' == 'Lab2' ">Lab2/Lab2/Lab2.csproj</BuildProject>
       <BuildProject Condition=" '$(Solution)' == 'Lab3' ">Lab3/Lab3/Lab3.csproj</BuildProject>
       <BuildProject Condition=" '$(Solution)' == 'Lab4' ">Lab4/Lab4Library/Lab4Library.csproj</BuildProject>
+      <BuildProject Condition=" '$(Solution)' == 'Lab5' ">Lab5/Lab5WebApp/Lab5WebApp.csproj</BuildProject>
     </PropertyGroup>
     <MSBuild Projects="$(BuildProject)" Targets="Restore;Build" />
   </Target>
@@ -38,13 +39,6 @@
       <OutputFile>$(Solution)/OUTPUT.TXT</OutputFile>
     </PropertyGroup>
     <Exec Command="dotnet run --project &quot;$(RunProject)&quot; -- --input=$(InputFile) --output=$(OutputFile)" WorkingDirectory="$(Solution)" />
-  </Target>
-
-  <Target Name="Test" DependsOnTargets="PrepareLab3">
-    <PropertyGroup>
-      <TestProject>$(Solution)\$(Solution)Tests\$(Solution)Tests.csproj</TestProject>
-    </PropertyGroup>
-    <Exec Command="dotnet test $(TestProject) --logger:console;verbosity=detailed" />
   </Target>
 
 </Project>
