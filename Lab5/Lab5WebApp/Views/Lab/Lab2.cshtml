@@ -1,0 +1,19 @@
+<h1>Лабораторна робота №2</h1>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color: red;">@ViewBag.Error</p>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <label for="inputFile">Завантажте файл INPUT.TXT (необов'язково):</label>
+    <input type="file" id="inputFile" name="inputFile" accept=".txt" />
+    <br /><br />
+    <button type="submit">Запустити</button>
+</form>
+
+@if (ViewBag.Result != null)
+{
+    <p>Результат: @ViewBag.Result</p>
+    <a href="/OUTPUT.TXT" download>Завантажити OUTPUT.TXT</a>
+}
