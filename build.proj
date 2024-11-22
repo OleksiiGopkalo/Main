@@ -34,11 +34,12 @@
 
   <Target Name="Run">
     <PropertyGroup>
-      <RunProject>$(Solution)\$(Solution).csproj</RunProject>
-      <InputFile>$(Solution)/INPUT.TXT</InputFile>
-      <OutputFile>$(Solution)/OUTPUT.TXT</OutputFile>
+      <!-- Абсолютний шлях до проекту -->
+      <RunProject>/Users/aleksejgopkalo/Desktop/Main/Lab5/Lab5WebApp/Lab5WebApp.csproj</RunProject>
+      <InputFile>/Users/aleksejgopkalo/Desktop/Main/Lab5/INPUT.TXT</InputFile>
+      <OutputFile>/Users/aleksejgopkalo/Desktop/Main/Lab5/OUTPUT.TXT</OutputFile>
     </PropertyGroup>
-    <Exec Command="dotnet run --project &quot;$(RunProject)&quot; -- --input=$(InputFile) --output=$(OutputFile)" WorkingDirectory="$(Solution)" />
+    <Exec Command="dotnet run --project &quot;$(RunProject)&quot; -- --input=$(InputFile) --output=$(OutputFile)" />
   </Target>
 
 </Project>
