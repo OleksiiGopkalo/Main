@@ -8,6 +8,7 @@
     <ProjectFile Include="$(Solution)\*.csproj" />
   </ItemGroup>
 
+  <!-- Підготовка для Lab3 -->
   <Target Name="PrepareLab3" Condition=" '$(Solution)' == 'Lab3' ">
     <!-- Пакуємо проект OGopkalo для NuGet -->
     <Exec Command="dotnet pack ./Lab3/OGopkalo/OGopkalo.csproj -c Release" />
@@ -20,26 +21,61 @@
     <Exec Command="dotnet add ./Lab3/Lab3/Lab3.csproj package OGopkalo --source ./Lab3/OGopkalo/bin/Release/" />
   </Target>
 
+  <!-- Збірка проектів -->
   <Target Name="Build" DependsOnTargets="PrepareLab3">
     <PropertyGroup>
       <!-- Вибираємо правильний проект для Build -->
       <BuildProject Condition=" '$(Solution)' == 'Lab1' ">Lab1/Lab1/Lab1.csproj</BuildProject>
       <BuildProject Condition=" '$(Solution)' == 'Lab2' ">Lab2/Lab2/Lab2.csproj</BuildProject>
       <BuildProject Condition=" '$(Solution)' == 'Lab3' ">Lab3/Lab3/Lab3.csproj</BuildProject>
-      <BuildProject Condition=" '$(Solution)' == 'Lab4' ">Lab4/Lab4Library/Lab4Library.csproj</BuildProject>
+      <BuildProject Condition=" '$(Solution)' == 'Lab4' ">Lab4/Lab4App/Lab4App.csproj</BuildProject>
       <BuildProject Condition=" '$(Solution)' == 'Lab5' ">Lab5/Lab5WebApp/Lab5WebApp.csproj</BuildProject>
     </PropertyGroup>
     <MSBuild Projects="$(BuildProject)" Targets="Restore;Build" />
   </Target>
 
+  <!-- Запуск для кожної ЛР -->
   <Target Name="Run">
+  <PropertyGroup>
+    <!-- Шляхи до проектів для кожної ЛР -->
+    <RunProject Condition=" '$(Solution)' == 'Lab1' ">Lab1/Lab1/Lab1.csproj</RunProject>
+    <RunProject Condition=" '$(Solution)' == 'Lab2' ">Lab2/Lab2/Lab2.csproj</RunProject>
+    <RunProject Condition=" '$(Solution)' == 'Lab3' ">Lab3/Lab3/Lab3.csproj</RunProject>
+    <RunProject Condition=" '$(Solution)' == 'Lab4' ">Lab4/Lab4App/Lab4App.csproj</RunProject>
+    <RunProject Condition=" '$(Solution)' == 'Lab5' ">Lab5/Lab5WebApp/Lab5WebApp.csproj</RunProject>
+
+    <!-- Повні шляхи до INPUT.TXT та OUTPUT.TXT для кожної ЛР -->
+    <InputFile Condition=" '$(Solution)' == 'Lab1' ">$(Solution)/Lab1/INPUT.TXT</InputFile>
+    <OutputFile Condition=" '$(Solution)' == 'Lab1' ">$(Solution)/Lab1/OUTPUT.TXT</OutputFile>
+
+    <InputFile Condition=" '$(Solution)' == 'Lab2' ">$(Solution)/Lab2/INPUT.TXT</InputFile>
+    <OutputFile Condition=" '$(Solution)' == 'Lab2' ">$(Solution)/Lab2/OUTPUT.TXT</OutputFile>
+
+    <InputFile Condition=" '$(Solution)' == 'Lab3' ">$(Solution)/Lab3/INPUT.TXT</InputFile>
+    <OutputFile Condition=" '$(Solution)' == 'Lab3' ">$(Solution)/Lab3/OUTPUT.TXT</OutputFile>
+
+    <!-- Шляхи для Lab4 -->
+    <InputFile Condition=" '$(Solution)' == 'Lab4' ">/Users/aleksejgopkalo/Desktop/Main/Lab1/INPUT.TXT</InputFile>
+    <OutputFile Condition=" '$(Solution)' == 'Lab4' ">/Users/aleksejgopkalo/Desktop/Main/Lab1/OUTPUT.TXT</OutputFile>
+  </PropertyGroup>
+
+  <!-- Виконання відповідного проекту -->
+  <Exec Command="dotnet run --project &quot;$(RunProject)&quot; -- run lab1 -i &quot;$(InputFile)&quot; -o &quot;$(OutputFile)&quot;" Condition=" '$(Solution)' == 'Lab4' " />
+  <Exec Command="dotnet run --project &quot;$(RunProject)&quot; -- --input=$(InputFile) --output=$(OutputFile)" Condition=" '$(Solution)' != 'Lab4' " />
+</Target>
+
+
+  <!-- Тести для кожної ЛР -->
+  <Target Name="Test">
     <PropertyGroup>
-      <!-- Абсолютний шлях до проекту -->
-      <RunProject>/Users/aleksejgopkalo/Desktop/Main/Lab5/Lab5WebApp/Lab5WebApp.csproj</RunProject>
-      <InputFile>/Users/aleksejgopkalo/Desktop/Main/Lab5/INPUT.TXT</InputFile>
-      <OutputFile>/Users/aleksejgopkalo/Desktop/Main/Lab5/OUTPUT.TXT</OutputFile>
+      <!-- Тести для Lab1 -->
+      <TestProject Condition=" '$(Solution)' == 'Lab1' ">Lab1/Lab1Tests/Lab1Tests.csproj</TestProject>
+      <TestProject Condition=" '$(Solution)' == 'Lab2' ">Lab2/Lab2Tests/Lab2Tests.csproj</TestProject>
+      <TestProject Condition=" '$(Solution)' == 'Lab3' ">Lab3/Lab3Tests/Lab3Tests.csproj</TestProject>
     </PropertyGroup>
-    <Exec Command="dotnet run --project &quot;$(RunProject)&quot; -- --input=$(InputFile) --output=$(OutputFile)" />
+
+    <!-- Запуск тестів -->
+    <Exec Command="dotnet test &quot;$(TestProject)&quot; --logger:console;verbosity=detailed" />
   </Target>
 
 </Project>

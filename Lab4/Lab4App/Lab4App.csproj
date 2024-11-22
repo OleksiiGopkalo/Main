@@ -1,19 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <!-- Посилання на Lab4Library -->
     <ProjectReference Include="..\Lab4Library\Lab4Library.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="OGopkalo" Version="1.0.0" />
-  </ItemGroup>
-
   <PropertyGroup>
+    <!-- Унікальний ідентифікатор пакету -->
     <PackageId>OGopkalo</PackageId>
     <Authors>Гопкало Олексій Володимирович</Authors> 
+    
+    <!-- Тип вихідного файлу -->
     <OutputType>Exe</OutputType>
+    
+    <!-- Цільова версія фреймворка -->
     <TargetFramework>net8.0</TargetFramework>
+    
+    <!-- Автоматичні імпорти для зручності -->
     <ImplicitUsings>enable</ImplicitUsings>
+    
+    <!-- Включення Nullable reference types -->
     <Nullable>enable</Nullable>
   </PropertyGroup>
 

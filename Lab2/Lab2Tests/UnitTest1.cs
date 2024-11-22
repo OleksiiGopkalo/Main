@@ -1,50 +1,75 @@
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-[TestClass]
-public class ProgramTests
+namespace Lab1Tests
 {
-    [TestMethod]
-    public void TestExample1()
+    [TestClass]
+    public class DivisorTests
     {
-        string s = "abcde";
-        int n = 5, k = 1;
-        int result = Program.CountAlmostPalindromicSubstrings(s, n, k);
-        Assert.AreEqual(12, result);
-    }
+        [TestInitialize]
+        public void SetUp()
+        {
+            // Якщо файл OUTPUT.TXT існує, видаляємо його перед кожним тестом
+            if (File.Exists("OUTPUT.TXT"))
+            {
+                File.Delete("OUTPUT.TXT");
+            }
+        }
 
-    [TestMethod]
-    public void TestExample2()
-    {
-        string s = "aaa";
-        int n = 3, k = 3;
-        int result = Program.CountAlmostPalindromicSubstrings(s, n, k);
-        Assert.AreEqual(6, result);
-    }
+        [TestMethod]
+        public void TestSmallNumber()
+        {
+            // Записуємо тестові дані в INPUT.TXT
+            File.WriteAllText("INPUT.TXT", "12");
 
-    [TestMethod]
-    public void TestSingleCharacter()
-    {
-        string s = "a";
-        int n = 1, k = 0;
-        int result = Program.CountAlmostPalindromicSubstrings(s, n, k);
-        Assert.AreEqual(1, result); // Лише одна підстрока "a" і вона вже паліндром
-    }
+            // Викликаємо Main (який в свою чергу викликає Run)
+            Program.Main();
 
-    [TestMethod]
-    public void TestAllSameCharacters()
-    {
-        string s = "aaaa";
-        int n = 4, k = 0;
-        int result = Program.CountAlmostPalindromicSubstrings(s, n, k);
-        Assert.AreEqual(10, result); // Усі підстроки вже є паліндромами
-    }
+            // Зчитуємо результат з OUTPUT.TXT
+            string result = File.ReadAllText("OUTPUT.TXT");
 
-    [TestMethod]
-    public void TestMaximumK()
-    {
-        string s = "abcd";
-        int n = 4, k = 2;
-        int result = Program.CountAlmostPalindromicSubstrings(s, n, k);
-        Assert.AreEqual(10, result); // Усі підстроки можна перетворити на паліндроми з K = 2
+            // Очікуємо правильний результат: всі дільники числа 12
+            Assert.AreEqual("2,3,4,6,12", result.Trim());
+        }
+
+        [TestMethod]
+        public void TestPrimeNumber()
+        {
+            // Тест для простого числа
+            File.WriteAllText("INPUT.TXT", "13");
+            Program.Main(); // Викликаємо Main
+            string result = File.ReadAllText("OUTPUT.TXT");
+            Assert.AreEqual("13", result.Trim()); // Для простого числа результатом буде саме число
+        }
+
+        [TestMethod]
+        public void TestCompositeNumberWithMultiplePrimeFactors()
+        {
+            // Тест для числа з кількома простими дільниками
+            File.WriteAllText("INPUT.TXT", "30");
+            Program.Main();
+            string result = File.ReadAllText("OUTPUT.TXT");
+            Assert.AreEqual("2,3,5,6,10,15,30", result.Trim());
+        }
+
+        [TestMethod]
+        public void TestLargeCompositeNumber()
+        {
+            // Тест для великого складного числа
+            File.WriteAllText("INPUT.TXT", "100");
+            Program.Main();
+            string result = File.ReadAllText("OUTPUT.TXT");
+            Assert.AreEqual("2,4,5,10,20,25,50,100", result.Trim());
+        }
+
+        [TestMethod]
+        public void TestSingleDigitNumber()
+        {
+            // Тест для числа з одним дільником
+            File.WriteAllText("INPUT.TXT", "7");
+            Program.Main();
+            string result = File.ReadAllText("OUTPUT.TXT");
+            Assert.AreEqual("7", result.Trim());
+        }
     }
 }

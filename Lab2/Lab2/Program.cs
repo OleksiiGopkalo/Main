@@ -5,7 +5,7 @@ public class Program
 {
     public static void Main()
     {
-        string[] input = File.ReadAllLines("INPUT.TXT");
+        string[] input = File.ReadAllLines("/Users/aleksejgopkalo/Desktop/Main/Lab2/INPUT.TXT");
         string[] parameters = input[0].Split();
         
         int n = int.Parse(parameters[0]);
@@ -13,7 +13,7 @@ public class Program
         string s = input[1];
 
         int result = CountAlmostPalindromicSubstrings(s, n, k);
-        File.WriteAllText("OUTPUT.TXT", result.ToString());
+        File.WriteAllText("/Users/aleksejgopkalo/Desktop/Main/Lab2/OUTPUT.TXT", result.ToString());
     }
 
     public static int CountAlmostPalindromicSubstrings(string s, int n, int k)

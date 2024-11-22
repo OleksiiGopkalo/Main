@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Lab4Library;
 
 class Program
 {
@@ -35,7 +36,7 @@ class Program
                     switch (labToRun)
                     {
                         case "lab1":
-                            Lab4Library.LabRunner.RunLab1(inputFile, outputFile);
+                            LabRunner.Lab1(inputFile, outputFile);
                             Console.WriteLine($"Lab1 executed. Output written to {outputFile}");
                             break;
 
@@ -85,25 +86,25 @@ class Program
     }
 
     static string GetFilePath(string[] args, string shortOpt, string longOpt)
-{
-    // 1. Перевірка параметрів командного рядка
-    for (int i = 0; i < args.Length - 1; i++)
     {
-        if (args[i] == shortOpt || args[i] == longOpt)
+        // 1. Перевірка параметрів командного рядка
+        for (int i = 0; i < args.Length - 1; i++)
         {
-            return args[i + 1];
+            if (args[i] == shortOpt || args[i] == longOpt)
+            {
+                return args[i + 1];
+            }
         }
-    }
 
-    // 2. Перевірка змінної середовища LAB_PATH
-    string labPath = Environment.GetEnvironmentVariable("LAB_PATH") ?? string.Empty;
-    if (!string.IsNullOrEmpty(labPath))
-    {
-        string fileName = shortOpt == "-i" ? "INPUT.TXT" : "OUTPUT.TXT";
-        return Path.Combine(labPath, fileName);
-    }
+        // 2. Перевірка змінної середовища LAB_PATH
+        string labPath = Environment.GetEnvironmentVariable("LAB_PATH") ?? string.Empty;
+        if (!string.IsNullOrEmpty(labPath))
+        {
+            string fileName = shortOpt == "-i" ? "INPUT.TXT" : "OUTPUT.TXT";
+            return Path.Combine(labPath, fileName);
+        }
 
-    // 3. Домашня директорія за замовчуванням
-    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), shortOpt == "-i" ? "INPUT.TXT" : "OUTPUT.TXT");
-}
+        // 3. Домашня директорія за замовчуванням
+        return Path.Combine("/Users/aleksejgopkalo/Desktop/Main/Lab4", shortOpt == "-i" ? "INPUT.TXT" : "OUTPUT.TXT");
+    }
 }

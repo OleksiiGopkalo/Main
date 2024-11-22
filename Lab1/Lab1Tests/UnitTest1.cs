@@ -1,63 +1,67 @@
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Lab1; // Додаємо простір імен Lab1
 
 namespace Lab1Tests
 {
     [TestClass]
     public class DivisorTests
     {
+        private string inputFilePath = "/Users/aleksejgopkalo/Desktop/Main/Lab1/INPUT.TXT";
+        private string outputFilePath = "/Users/aleksejgopkalo/Desktop/Main/Lab1/OUTPUT.TXT";
+
         [TestInitialize]
         public void SetUp()
         {
-            if (File.Exists("OUTPUT.TXT"))
-            {
-                File.Delete("OUTPUT.TXT");
-            }
+            if (File.Exists(inputFilePath))
+                File.Delete(inputFilePath);
+            if (File.Exists(outputFilePath))
+                File.Delete(outputFilePath);
         }
 
         [TestMethod]
         public void TestSmallNumber()
         {
-            File.WriteAllText("INPUT.TXT", "12");
-            Program.Main(new string[0]); // Викликаємо Main
-            string result = File.ReadAllText("OUTPUT.TXT");
-            Assert.AreEqual("2,3,4,6,12", result.Trim()); // Очікуємо всі дільники
+            File.WriteAllText(inputFilePath, "12");
+            Program.Run(inputFilePath, outputFilePath); // Викликаємо Program.Run
+            string result = File.ReadAllText(outputFilePath);
+            Assert.AreEqual("1,2,3,4,6,12", result.Trim());
         }
 
         [TestMethod]
         public void TestPrimeNumber()
         {
-            File.WriteAllText("INPUT.TXT", "13");
-            Program.Main(new string[0]);
-            string result = File.ReadAllText("OUTPUT.TXT");
-            Assert.AreEqual("13", result.Trim()); // Прості числа мають лише себе як дільник
+            File.WriteAllText(inputFilePath, "13");
+            Program.Run(inputFilePath, outputFilePath);
+            string result = File.ReadAllText(outputFilePath);
+            Assert.AreEqual("1,13", result.Trim());
         }
 
         [TestMethod]
         public void TestCompositeNumberWithMultiplePrimeFactors()
         {
-            File.WriteAllText("INPUT.TXT", "30");
-            Program.Main(new string[0]);
-            string result = File.ReadAllText("OUTPUT.TXT");
-            Assert.AreEqual("2,3,5,6,10,15,30", result.Trim());
+            File.WriteAllText(inputFilePath, "30");
+            Program.Run(inputFilePath, outputFilePath);
+            string result = File.ReadAllText(outputFilePath);
+            Assert.AreEqual("1,2,3,5,6,10,15,30", result.Trim());
         }
 
         [TestMethod]
         public void TestLargeCompositeNumber()
         {
-            File.WriteAllText("INPUT.TXT", "100");
-            Program.Main(new string[0]);
-            string result = File.ReadAllText("OUTPUT.TXT");
-            Assert.AreEqual("2,4,5,10,20,25,50,100", result.Trim());
+            File.WriteAllText(inputFilePath, "100");
+            Program.Run(inputFilePath, outputFilePath);
+            string result = File.ReadAllText(outputFilePath);
+            Assert.AreEqual("1,2,4,5,10,20,25,50,100", result.Trim());
         }
 
         [TestMethod]
         public void TestSingleDigitNumber()
         {
-            File.WriteAllText("INPUT.TXT", "7");
-            Program.Main(new string[0]);
-            string result = File.ReadAllText("OUTPUT.TXT");
-            Assert.AreEqual("7", result.Trim());
+            File.WriteAllText(inputFilePath, "7");
+            Program.Run(inputFilePath, outputFilePath);
+            string result = File.ReadAllText(outputFilePath);
+            Assert.AreEqual("1,7", result.Trim());
         }
     }
 }

@@ -1,17 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-   <ProjectReference Include="../../Lab1/Lab1/Lab1.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="OGopkalo" Version="1.0.0" />
+    <!-- Посилання на Lab1 -->
+    <ProjectReference Include="/Users/aleksejgopkalo/Desktop/Main/Lab1/Lab1/Lab1.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
+    <!-- Цільова версія фреймворка -->
     <TargetFramework>net8.0</TargetFramework>
+    
+    <!-- Автоматичні імпорти для зручності -->
     <ImplicitUsings>enable</ImplicitUsings>
+    
+    <!-- Включення Nullable reference types -->
     <Nullable>enable</Nullable>
+    
+    <!-- Тип вихідного файлу має бути "Library" -->
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
 </Project>
